@@ -3,8 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+
 // Importamos las rutas de coches
 const cocheRoutes = require('./routes/cocheRoutes');
+const authRouter = require("./routes/auth/authRoutes");
+const userRoutes = require("./routes/users"); 
 
 const app = express();
 
@@ -14,6 +17,8 @@ mongoose.set("strictQuery", false);
 // Habilitar CORS para manejar las solicitudes
 app.use(cors());
 app.use(express.json());
+app.use('/auth', authRouter);
+app.use('/users', userRoutes);
 
 // Conectamos a la base de datos
 async function main() {
