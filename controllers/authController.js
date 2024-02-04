@@ -5,7 +5,7 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // Buscar usuario por email y asegurarse de que esté activo
+        // Buscar usuario por email  que este activo
         const user = await User.findOne({ email, active: true });
 
         if (!user) {
@@ -19,7 +19,6 @@ exports.login = async (req, res) => {
             return res.status(400).json({ message: 'Contraseña incorrecta' });
         }
 
-        // Omitir el campo de contraseña en la respuesta
         const { password: _, ...userWithoutPassword } = user.toObject();
 
         res.json(userWithoutPassword);

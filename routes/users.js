@@ -20,7 +20,7 @@ router.post('/', [
     check('password', 'Password is required').not().isEmpty(),
     check('password').isLength({ min: 8 }).withMessage('Password must be at least 8 characters'),
     check('password').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
-        .withMessage('Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character'),
+        .withMessage('El password debe tener al menos 8 caracteres, una letra minúscula, una letra mayúscula, un número y un caracter especial.'),
     check('rol', 'Rol is required').not().isEmpty(),
     check('rol', 'El rol solo admite los valores ADMIN_ROLE o USER_ROLE').isIn(['ADMIN_ROLE', 'USER_ROLE']),
 

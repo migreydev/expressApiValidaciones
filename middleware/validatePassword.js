@@ -1,6 +1,6 @@
 const { body, validationResult } = require('express-validator');
 
-// Middleware para validar el formato de la contraseña
+// para validar el formato de la contraseña
 const validatePasswordFormat = body('password').custom((value, { req }) => {
     const regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
     if (!regex.test(value)) {
@@ -9,7 +9,7 @@ const validatePasswordFormat = body('password').custom((value, { req }) => {
     return true;
 });
 
-// Middleware para validar los resultados de las validaciones
+// para validar los resultados de las validaciones
 const validateResults = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
