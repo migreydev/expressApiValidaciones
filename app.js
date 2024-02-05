@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 
 // Importamos las rutas de coches
@@ -17,6 +18,7 @@ mongoose.set("strictQuery", false);
 // Habilitar CORS para manejar las solicitudes
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
 app.use('/auth', authRouter);
 app.use('/users', userRoutes);
 

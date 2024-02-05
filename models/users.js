@@ -9,6 +9,13 @@ const userSchema = new mongoose.Schema({
   active: { type: Boolean, default: true },
 });
 
+userSchema.methods.toJSON = function() {
+  const { __v, password, _id, ...user } = this.toObject();
+  user.uid = _id;
+  return user;
+};
+
 const User = mongoose.model('User', userSchema);
+
 
 module.exports = User;

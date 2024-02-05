@@ -1,11 +1,12 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/users');
+const jwt = require('jsonwebtoken');
 
 exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // Buscar usuario por email  que este activo
+        // Buscar usuario por email que este activo
         const user = await User.findOne({ email, active: true });
 
         if (!user) {
@@ -19,9 +20,16 @@ exports.login = async (req, res) => {
             return res.status(400).json({ message: 'Contraseña incorrecta' });
         }
 
-        const { password: _, ...userWithoutPassword } = user.toObject();
+        // Genera el JWT después de verificar la contraseña
+        const payload = { uid: user.id };
+        const token = jwt.sign(payload, process.env.SECRET, { expiresIn: '4h' });
 
-        res.json(userWithoutPassword);
+        // Enviar respuesta al cliente despues de verificar la contraseña
+        res.json({
+            user,
+            token
+        });
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error del servidor' });
